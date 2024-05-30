@@ -123,14 +123,16 @@ function updateCount(card) {
         count -= 1;
     }
 
-    trueCount = count / (decks - (cardsFlipped / 52));
+    let decksRemaining = (decks - (cardsFlipped / 52)).toFixed(1);
+    decksRemaining = Math.round(decksRemaining * 2) / 2; // Round to nearest 0.5
+    trueCount = count / decksRemaining;
 }
 
 function makeGuess() {
     const guess = parseFloat(document.getElementById('guess').value);
     const result = guess === trueCount
         ? 'Correct!'
-        : `Wrong! The true count was ${trueCount.toFixed(2)}, the running count was ${count}, and the cards counted were: ${flippedCards.join(', ')}`;
+        : `Wrong! The true count was ${trueCount.toFixed(2)}, the running count was ${count}, and the number of cards counted was: ${flippedCards.length}`;
     
     document.getElementById('result').innerText = result;
     document.getElementById('guess-button').style.display = 'none';
