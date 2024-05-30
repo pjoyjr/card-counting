@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Counting Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Card Counting Game</h1>
+        <label for="decks">Number of Decks:</label>
+        <input type="number" id="decks" min="1" max="10" value="1">
+        <button id="start-button">Start</button>
+        <div>
+            <label for="speed">Card Flipping Speed:</label>
+            <select id="speed">
+                <option value="1000">1 second</option>
+                <option value="500">0.5 seconds</option>
+                <option value="250">0.25 seconds</option>
+            </select>
+        </div>
+        <canvas id="card-canvas" width="200" height="300"></canvas>
+        <button id="guess-button">Guess Count</button>
+        <input type="text" id="guess" placeholder="Enter your guess">
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
