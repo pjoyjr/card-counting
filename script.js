@@ -1,5 +1,6 @@
 document.getElementById('start-button').addEventListener('click', startGame);
 document.getElementById('guess-button').addEventListener('click', makeGuess);
+document.getElementById('restart-button').addEventListener('click', () => location.reload());
 
 let count = 0;
 let trueCount = 0;
@@ -10,9 +11,11 @@ const ctx = cardCanvas.getContext('2d');
 
 const cardWidth = 100;
 const cardHeight = 150;
+let cardsFlipped = 0;
+let decks;
 
 function startGame() {
-    const decks = parseInt(document.getElementById('decks').value);
+    decks = parseInt(document.getElementById('decks').value);
     const speed = parseInt(document.getElementById('speed').value);
     count = 0;
     cardValues = generateCards(decks);
@@ -46,12 +49,25 @@ function flipCard() {
         ctx.clearRect(0, 0, cardCanvas.width, cardCanvas.height);
         ctx.font = '20px Arial';
         ctx.fillText('Done', cardCanvas.width / 2 - 20, cardCanvas.height / 2);
+        promptGuess(true);
+        return;
+    }
+
+    if (cardsFlipped >= 0.8 * decks * 52) {
+        clearInterval(intervalId);
+        promptGuess(true);
         return;
     }
 
     const card = cardValues.pop();
     drawCard(card);
     updateCount(card);
+
+    cardsFlipped++;
+    if (cardsFlipped % getRandomInt(6, 15) === 0) {
+        clearInterval(intervalId);
+        promptGuess();
+    }
 }
 
 function drawCard(card) {
@@ -102,7 +118,6 @@ function updateCount(card) {
         count -= 1;
     }
 
-    const decks = parseInt(document.getElementById('decks').value);
     trueCount = count / decks;
 }
 
@@ -110,4 +125,27 @@ function makeGuess() {
     const guess = parseFloat(document.getElementById('guess').value);
     const result = guess === trueCount ? 'Correct!' : `Wrong! The true count was ${trueCount.toFixed(2)}`;
     document.getElementById('result').innerText = result;
+    document.getElementById('guess-button').style.display = 'none';
+    document.getElementById('guess').style.display = 'none';
+
+    if (cardsFlipped < 0.8 * decks * 52) {
+        const speed = parseInt(document.getElementById('speed').value);
+        intervalId = setInterval(flipCard, speed);
+    } else {
+        document.getElementById('restart-button').style.display = 'block';
+    }
+}
+
+function promptGuess(final = false) {
+    document.getElementById('guess-button').style.display = 'block';
+    document.getElementById('guess').style.display = 'block';
+    if (final) {
+        document.getElementById('guess-button').innerText = 'Final Guess';
+    } else {
+        document.getElementById('guess-button').innerText = 'Submit Guess';
+    }
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }

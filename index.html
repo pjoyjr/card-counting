@@ -9,6 +9,14 @@
 <body>
     <div class="container">
         <h1>Card Counting Game</h1>
+        <p>Welcome to the Card Counting Game! Here's how to play:</p>
+        <ul>
+            <li>Select the number of decks you want to use.</li>
+            <li>Set the card flipping speed.</li>
+            <li>Click "Start" to begin the game.</li>
+            <li>Try to keep track of the count of the cards.</li>
+            <li>You will be prompted to guess the count every 6-15 cards and once at 80% of deck usage.</li>
+        </ul>
         <label for="decks">Number of Decks:</label>
         <input type="number" id="decks" min="1" max="10" value="1">
         <button id="start-button">Start</button>
@@ -21,9 +29,10 @@
             </select>
         </div>
         <canvas id="card-canvas" width="200" height="300"></canvas>
-        <button id="guess-button">Guess Count</button>
-        <input type="text" id="guess" placeholder="Enter your guess">
+        <button id="guess-button" style="display:none;">Submit Guess</button>
+        <input type="text" id="guess" placeholder="Enter your guess" style="display:none;">
         <div id="result"></div>
+        <button id="restart-button" style="display:none;">Restart</button>
     </div>
     <script src="script.js"></script>
 </body>
