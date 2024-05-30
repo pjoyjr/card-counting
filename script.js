@@ -5,6 +5,7 @@ document.getElementById('restart-button').addEventListener('click', () => locati
 let count = 0;
 let trueCount = 0;
 let cardValues = [];
+let flippedCards = [];
 let intervalId;
 const cardCanvas = document.getElementById('card-canvas');
 const ctx = cardCanvas.getContext('2d');
@@ -21,6 +22,7 @@ function startGame() {
     count = 0;
     cardsInDeck = decks * 52;
     cardValues = generateCards(decks);
+    flippedCards = [];
     document.getElementById('result').innerText = '';
     document.getElementById('guess').value = '';
 
@@ -62,6 +64,7 @@ function flipCard() {
     }
 
     const card = cardValues.pop();
+    flippedCards.push(card);
     drawCard(card);
     updateCount(card);
 
@@ -125,7 +128,10 @@ function updateCount(card) {
 
 function makeGuess() {
     const guess = parseFloat(document.getElementById('guess').value);
-    const result = guess === trueCount ? 'Correct!' : `Wrong! The true count was ${trueCount.toFixed(2)}`;
+    const result = guess === trueCount
+        ? 'Correct!'
+        : `Wrong! The true count was ${trueCount.toFixed(2)}, the running count was ${count}, and the cards counted were: ${flippedCards.join(', ')}`;
+    
     document.getElementById('result').innerText = result;
     document.getElementById('guess-button').style.display = 'none';
     document.getElementById('guess').style.display = 'none';
