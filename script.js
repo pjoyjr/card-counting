@@ -13,11 +13,13 @@ const cardWidth = 100;
 const cardHeight = 150;
 let cardsFlipped = 0;
 let decks;
+let cardsInDeck;
 
 function startGame() {
     decks = parseInt(document.getElementById('decks').value);
     const speed = parseInt(document.getElementById('speed').value);
     count = 0;
+    cardsInDeck = decks * 52;
     cardValues = generateCards(decks);
     document.getElementById('result').innerText = '';
     document.getElementById('guess').value = '';
@@ -53,7 +55,7 @@ function flipCard() {
         return;
     }
 
-    if (cardsFlipped >= 0.8 * decks * 52) {
+    if (cardsFlipped >= 0.8 * cardsInDeck) {
         clearInterval(intervalId);
         promptGuess(true);
         return;
@@ -118,7 +120,7 @@ function updateCount(card) {
         count -= 1;
     }
 
-    trueCount = count / decks;
+    trueCount = count / (decks - (cardsFlipped / 52));
 }
 
 function makeGuess() {
@@ -128,7 +130,7 @@ function makeGuess() {
     document.getElementById('guess-button').style.display = 'none';
     document.getElementById('guess').style.display = 'none';
 
-    if (cardsFlipped < 0.8 * decks * 52) {
+    if (cardsFlipped < 0.8 * cardsInDeck) {
         const speed = parseInt(document.getElementById('speed').value);
         intervalId = setInterval(flipCard, speed);
     } else {
