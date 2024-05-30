@@ -17,6 +17,13 @@
             <li>Try to keep track of the count of the cards.</li>
             <li>You will be prompted to guess the count every 6-15 cards and once at 80% of deck usage.</li>
         </ul>
+        <p>The <strong>count</strong> is calculated as follows:</p>
+        <ul>
+            <li>Cards 2 through 6 increase the count by 1.</li>
+            <li>Cards 10, Jack, Queen, King, and Ace decrease the count by 1.</li>
+            <li>Cards 7, 8, and 9 do not affect the count.</li>
+        </ul>
+        <p>The <strong>true count</strong> is calculated by dividing the running count by the number of decks remaining.</p>
         <label for="decks">Number of Decks:</label>
         <input type="number" id="decks" min="1" max="10" value="1">
         <button id="start-button">Start</button>
