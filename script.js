@@ -78,9 +78,9 @@ function generateCardSVG(card) {
     return `
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="100" height="150">
             <rect width="24" height="36" fill="white" stroke="black" />
-            <text x="2" y="20" font-family="Arial" font-size="18" fill="${color}">${value}${suitSymbol}</text>
-            <text x="2" y="5" font-family="Arial" font-size="18" fill="${color}">${value}${suitSymbol}</text>
-            <text x="12" y="18" font-family="Arial" font-size="30" fill="${color}" text-anchor="middle">${suitSymbol}</text>
+            <text x="2" y="8" font-family="Arial" font-size="6" fill="${color}">${value}${suitSymbol}</text>
+            <text x="2" y="28" font-family="Arial" font-size="6" fill="${color}">${value}${suitSymbol}</text>
+            <text x="12" y="20" font-family="Arial" font-size="16" fill="${color}" text-anchor="middle">${suitSymbol}</text>
         </svg>
     `;
 }
